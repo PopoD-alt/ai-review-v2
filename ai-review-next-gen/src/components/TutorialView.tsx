@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckCircle2, Info, Lightbulb } from 'lucide-react';
 import { Tutorial } from '@/data/tutorials';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-python';
 
 interface TutorialViewProps {
   tutorial: Tutorial;
 }
 
 export function TutorialView({ tutorial }: TutorialViewProps) {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [tutorial]);
+
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       {/* Header */}
@@ -61,8 +71,8 @@ export function TutorialView({ tutorial }: TutorialViewProps) {
                 <div className="bg-gray-800 px-4 py-2 flex justify-between items-center border-b border-gray-700">
                   <span className="text-xs text-gray-400 font-mono">{step.language || 'code'}</span>
                 </div>
-                <pre className="p-4 overflow-x-auto">
-                  <code className="text-gray-100 font-mono text-sm leading-relaxed">
+                <pre className="p-4 overflow-x-auto !bg-transparent !m-0">
+                  <code className={`language-${step.language || 'text'} text-gray-100 font-mono text-sm leading-relaxed`}>
                     {step.code}
                   </code>
                 </pre>
