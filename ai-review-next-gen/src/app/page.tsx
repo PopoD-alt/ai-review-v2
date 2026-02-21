@@ -59,15 +59,18 @@ export default function Home() {
         ))}
       </div>
 
-      {/* AI Intel Module */}
-      <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <AIIntel />
-      </section>
+      {/* Modules Grid */}
+      <div className="space-y-12">
+        {/* AI Intel Module */}
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <AIIntel />
+        </section>
 
-      {/* The Arena Module */}
-      <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
-        <TheArena />
-      </section>
+        {/* The Arena Module */}
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+          <TheArena />
+        </section>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Latest Content */}
