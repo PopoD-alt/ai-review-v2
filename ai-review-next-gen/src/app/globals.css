@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* ClickUp Inspired Palette */
+  --color-brand-primary: #7b68ee; /* ClickUp Purple */
+  --color-brand-secondary: #2ea2f8; /* ClickUp Blue */
+  --color-brand-success: #2ecd6f;
+  --color-brand-warning: #f79c31;
+  --color-brand-danger: #f82b60;
+  
+  /* Neutral Grays */
+  --color-gray-50: #f8f9fb;
+  --color-gray-100: #f0f1f4;
+  --color-gray-200: #e9ebf0;
+  --color-gray-300: #d6d9e0;
+  --color-gray-400: #b9bec7;
+  --color-gray-500: #87909e;
+  --color-gray-600: #5f6874;
+  --color-gray-700: #424952;
+  --color-gray-800: #2a2e34;
+  --color-gray-900: #15171a;
+
+  /* Shadows */
+  --shadow-cu-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-cu-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-cu-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-cu-sidebar: 4px 0 10px -2px rgba(0, 0, 0, 0.03);
+
+  /* Radius */
+  --radius-cu: 8px;
+  --radius-cu-lg: 12px;
+}
+
+:root {
+  --background: #f8f9fb;
+  --foreground: #2a2e34;
+  --card: #ffffff;
+  --sidebar: #ffffff;
+  --border: #e9ebf0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #15171a;
+    --foreground: #f8f9fb;
+    --card: #1f2226;
+    --sidebar: #1f2226;
+    --border: #2a2e34;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .cu-card {
+    @apply bg-[var(--card)] border border-[var(--border)] rounded-[--radius-cu] shadow-cu-sm hover:shadow-cu-md transition-shadow;
+  }
+  
+  .cu-sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2 rounded-[--radius-cu] text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer;
+  }
+  
+  .cu-sidebar-item-active {
+    @apply bg-brand-primary/10 text-brand-primary font-medium hover:bg-brand-primary/15;
+  }
+
+  .cu-header {
+    @apply sticky top-0 z-40 w-full bg-[var(--card)]/80 backdrop-blur-md border-b border-[var(--border)];
+  }
+}
