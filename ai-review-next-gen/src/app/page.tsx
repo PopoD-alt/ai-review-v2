@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 import AIIntel from '@/components/AIIntel';
 import TheArena from '@/components/TheArena';
+import { RecommendedLearning } from '@/components/RecommendedLearning';
 
 const stats = [
   { name: 'Total AI Tools', value: '1,284', change: '+12%', icon: Zap, color: 'text-brand-primary', bg: 'bg-brand-primary/10' },
@@ -155,6 +156,8 @@ export default function Home() {
             </div>
             <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
           </div>
+
+          <RecommendedLearning />
         </div>
       </div>
     </div>
