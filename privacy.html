@@ -3,28 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - AI Review</title>
+    <title>Privacy Policy - AI Review Site</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <nav class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center">
-            <a href="index.html" class="text-2xl font-bold">AI<span class="text-indigo-600">Review</span></a>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-gray-900">AI<span class="text-indigo-600">Review</span></a>
+                </div>
+            </div>
         </div>
     </nav>
-    <main class="max-w-3xl mx-auto py-12 px-4">
-        <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>
-        <p class="mb-4">Last updated: February 21, 2026</p>
-        <p class="mb-4">Your privacy is important to us. This policy explains how we handle your information.</p>
-        <h2 class="text-xl font-bold mt-8 mb-4">1. Information We Collect</h2>
-        <p class="mb-4">We do not collect personal data unless you voluntarily provide it through our submission or subscription forms (hosted by Google Forms).</p>
-        <h2 class="text-xl font-bold mt-8 mb-4">2. Cookies</h2>
-        <p class="mb-4">This site is a static directory and does not use tracking cookies.</p>
-        <h2 class="text-xl font-bold mt-8 mb-4">3. External Links</h2>
-        <p class="mb-4">Our site contains links to external tools and services. We are not responsible for the privacy practices of those sites.</p>
-        <div class="mt-12">
-            <a href="index.html" class="text-indigo-600 hover:underline">← Back to home</a>
+
+    <!-- Content -->
+    <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Privacy Policy</h1>
+        <div class="prose prose-indigo text-gray-600 space-y-6">
+            <p>Last updated: February 21, 2026</p>
+            <p>At AI Review Site, we prioritize your privacy. This policy outlines how we handle information when you visit our website.</p>
+            
+            <h2 class="text-xl font-bold text-gray-900">1. Information We Collect</h2>
+            <p>We do not require account registration. We may collect non-personal information such as browser type, time spent on pages, and referring links for analytics purposes to improve our service.</p>
+
+            <h2 class="text-xl font-bold text-gray-900">2. Cookies</h2>
+            <p>We use minimal cookies to remember your preferences (like category filters) and for basic site analytics.</p>
+
+            <h2 class="text-xl font-bold text-gray-900">3. Third-Party Links</h2>
+            <p>Our site contains links to external AI tools and services. We are not responsible for the privacy practices or content of these third-party websites.</p>
+
+            <h2 class="text-xl font-bold text-gray-900">4. Newsletter</h2>
+            <p>If you choose to subscribe to our newsletter via the provided Google Forms link, your email address is stored securely and used only for sending you updates about AI tools. You can unsubscribe at any time.</p>
+
+            <h2 class="text-xl font-bold text-gray-900">5. Contact</h2>
+            <p>If you have any questions about this Privacy Policy, please contact us via the forms linked on our main page.</p>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-400">
+            <p>&copy; 2026 AI Review Site. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -3,30 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advertise - AI Review</title>
+    <title>Advertise with Us - AI Review Site</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <nav class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center">
-            <a href="index.html" class="text-2xl font-bold">AI<span class="text-indigo-600">Review</span></a>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-gray-900">AI<span class="text-indigo-600">Review</span></a>
+                </div>
+            </div>
         </div>
     </nav>
-    <main class="max-w-3xl mx-auto py-12 px-4 text-center">
-        <h1 class="text-4xl font-extrabold mb-6">Advertise with Us</h1>
-        <p class="text-xl text-gray-600 mb-8">Reach thousands of AI enthusiasts and professionals looking for the latest tools.</p>
-        <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 text-left mb-8">
-            <h2 class="text-2xl font-bold mb-4">Why AI Review?</h2>
-            <ul class="list-disc list-inside space-y-2 text-gray-700">
-                <li>Featured placement in the "Latest Tools" section.</li>
-                <li>Newsletter spotlights.</li>
-                <li>Social media promotion.</li>
-            </ul>
+
+    <!-- Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Advertise with Us</h1>
+            <p class="text-xl text-gray-600">Put your AI tool in front of thousands of early adopters and productivity enthusiasts.</p>
         </div>
-        <a href="https://forms.gle/8SS2w4K9bWJKncwWA" target="_blank" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700 transition">Get Started</a>
-        <div class="mt-12">
-            <a href="index.html" class="text-indigo-600 hover:underline">← Back to home</a>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-indigo-600 mb-2">Featured Slot</h3>
+                <p class="text-sm text-gray-600">Get pinned to the top of the "Latest Tools" grid for maximum visibility.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-indigo-600 mb-2">Newsletter Blast</h3>
+                <p class="text-sm text-gray-600">Dedicated shoutout in our weekly newsletter to all subscribers.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-indigo-600 mb-2">LLM Leaderboard</h3>
+                <p class="text-sm text-gray-600">Sponsorship slots available in our high-traffic LLM leaderboard sidebar.</p>
+            </div>
+        </div>
+
+        <div class="bg-indigo-600 rounded-2xl p-8 text-center text-white">
+            <h2 class="text-2xl font-bold mb-4">Ready to grow your AI product?</h2>
+            <p class="mb-8 opacity-90">Reach out to our team via the form below for current rates and availability.</p>
+            <a href="https://forms.gle/8SS2w4K9bWJKncwWA" target="_blank" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">Contact Advertising Team</a>
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-400">
+            <p>&copy; 2026 AI Review Site. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
