@@ -76,4 +76,13 @@ body {
   .cu-header {
     @apply sticky top-0 z-40 w-full bg-[var(--card)]/80 backdrop-blur-md border-b border-[var(--border)];
   }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
 }

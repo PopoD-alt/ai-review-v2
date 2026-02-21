@@ -9,6 +9,7 @@ import {
 import Link from 'next/link';
 import AIIntel from '@/components/AIIntel';
 import TheArena from '@/components/TheArena';
+import GadgetLab from '@/components/GadgetLab';
 import { RecommendedLearning } from '@/components/RecommendedLearning';
 
 const stats = [
@@ -63,19 +64,24 @@ export default function Home() {
       {/* Modules Grid */}
       <div className="space-y-12">
         {/* AI Intel Module */}
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <section id="news" className="animate-in fade-in slide-in-from-bottom-4 duration-700">
           <AIIntel />
         </section>
 
         {/* The Arena Module */}
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+        <section id="arena" className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
           <TheArena />
+        </section>
+
+        {/* Gadget Lab Module - NEW */}
+        <section id="gadgets" className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+          <GadgetLab />
         </section>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Latest Content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div id="tools" className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold flex items-center gap-2">
               <span className="w-1.5 h-6 bg-brand-info rounded-full"></span>

@@ -19,11 +19,11 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
-  { name: 'News', icon: Newspaper, href: '/news' },
-  { name: 'AI Tools', icon: Wrench, href: '/tools' },
-  { name: 'Leaderboards', icon: Trophy, href: '/leaderboards' },
-  { name: 'Tutorials', icon: BookOpen, href: '/tutorials' },
-  { name: 'Gadgets', icon: Smartphone, href: '/gadgets' },
+  { name: 'AI Intel', icon: Newspaper, href: '/#news' },
+  { name: 'The Arena', icon: Trophy, href: '/#arena' },
+  { name: 'Gadget Lab', icon: Smartphone, href: '/#gadgets' },
+  { name: 'Workshop', icon: BookOpen, href: '/tutorials' },
+  { name: 'AI Tools', icon: Wrench, href: '/#tools' },
 ];
 
 export function Sidebar() {
