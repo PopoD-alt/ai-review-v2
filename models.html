@@ -31,45 +31,77 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        .nav-link {
+        /* ... existing styles ... */
+
+        .code-block {
             position: relative;
-            font-weight: 600;
+            background: #0f172a;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .code-block pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 0;
+            color: #e2e8f0;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
             color: #94a3b8;
-            transition: color 0.2s;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .prose h3 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 2rem; margin-bottom: 1rem; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.75; color: #cbd5e1; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #cbd5e1; }
+        .prose li { margin-bottom: 0.5rem; }
+        
+        .compare-select {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            cursor: pointer;
         }
         
-        .nav-link:hover, .nav-link.active {
-            color: #fff;
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-primary);
-            box-shadow: 0 0 8px var(--accent-primary);
-        }
-
-        .gradient-text { 
-            background: linear-gradient(135deg, #a5b4fc 0%, #f9a8d4 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            text-shadow: 0 0 30px rgba(165, 180, 252, 0.2);
-        }
-
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .compare-select:focus {
+            outline: 2px solid var(--accent-primary);
         }
     </style>
+    <script>
+        function copyCode(btn) {
+            const pre = btn.parentElement.querySelector('pre');
+            const code = pre.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -104,37 +136,45 @@
     <div class="max-w-6xl mx-auto px-4 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-white mb-4">The Arena</h1>
-            <p class="text-slate-400">Benchmark comparisons and capability analysis.</p>
+            <p class="text-slate-400 mb-8">Benchmark comparisons and capability analysis.</p>
+            <a href="compare.html" class="inline-flex items-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-full transition shadow-lg shadow-indigo-500/20">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Compare Models
+            </a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
                 <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
                     <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
-                        L
+                        G
                     </div>
                     
                     <div class="relative z-10">
-                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Meta</span>
-                        <h2 class="text-2xl font-bold text-white mb-2">Llama 3 70B</h2>
-                        <p class="text-sm text-slate-400 mb-6 h-10">Best open-source model for general reasoning.</p>
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">OpenAI</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">GPT-4o</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">Omni model with state-of-the-art reasoning, audio, and vision capabilities.</p>
                         
                         <div class="space-y-3 mb-8">
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Context Window</span>
-                                <span class="text-slate-200 font-mono">8k</span>
+                                <span class="text-slate-200 font-mono">128k</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Performance</span>
-                                <span class="text-indigo-400 font-bold">High</span>
+                                <span class="text-indigo-400 font-bold">Elite</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">88.7%</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Cost</span>
-                                <span class="text-emerald-400 font-bold">Free (Open Source)</span>
+                                <span class="text-emerald-400 font-bold">$5 / $15</span>
                             </div>
                         </div>
 
-                        <a href="https://llama.meta.com/" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                        <a href="https://openai.com/gpt-4o" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
                             Access Model
                         </a>
                     </div>
@@ -142,30 +182,34 @@
             
                 <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
                     <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
-                        M
+                        C
                     </div>
                     
                     <div class="relative z-10">
-                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Mistral AI</span>
-                        <h2 class="text-2xl font-bold text-white mb-2">Mistral Large</h2>
-                        <p class="text-sm text-slate-400 mb-6 h-10">Strong coding capabilities and multilingual support.</p>
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Anthropic</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">Claude 3.5 Sonnet</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">The industry standard for coding and nuanced writing tasks. Exceptional speed and cost-efficiency.</p>
                         
                         <div class="space-y-3 mb-8">
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Context Window</span>
-                                <span class="text-slate-200 font-mono">32k</span>
+                                <span class="text-slate-200 font-mono">200k</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Performance</span>
-                                <span class="text-indigo-400 font-bold">Very High</span>
+                                <span class="text-indigo-400 font-bold">Elite</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">88.3%</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Cost</span>
-                                <span class="text-emerald-400 font-bold">Free Tier Available</span>
+                                <span class="text-emerald-400 font-bold">$3 / $15</span>
                             </div>
                         </div>
 
-                        <a href="https://mistral.ai/" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                        <a href="https://anthropic.com/claude" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
                             Access Model
                         </a>
                     </div>
@@ -179,24 +223,203 @@
                     <div class="relative z-10">
                         <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Google</span>
                         <h2 class="text-2xl font-bold text-white mb-2">Gemini 1.5 Pro</h2>
-                        <p class="text-sm text-slate-400 mb-6 h-10">Massive context window for analyzing books/codebases.</p>
+                        <p class="text-sm text-slate-400 mb-6 h-10">Massive context window ideal for analyzing entire codebases, long documents, and video.</p>
                         
                         <div class="space-y-3 mb-8">
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Context Window</span>
-                                <span class="text-slate-200 font-mono">1M+</span>
+                                <span class="text-slate-200 font-mono">2M</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Performance</span>
                                 <span class="text-indigo-400 font-bold">Elite</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">85.9%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Cost</span>
-                                <span class="text-emerald-400 font-bold">Free (via AI Studio)</span>
+                                <span class="text-emerald-400 font-bold">$3.50 / $10.50</span>
                             </div>
                         </div>
 
                         <a href="https://aistudio.google.com/" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        L
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Meta</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">Llama 3.1 405B</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">The most powerful open-weights model available. Rivaling top proprietary models.</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">128k</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">Elite</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">88.6%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">Open Source</span>
+                            </div>
+                        </div>
+
+                        <a href="https://llama.meta.com/" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        G
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">xAI</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">Grok 2</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">Real-time access to X data with strong reasoning capabilities and uncensored modes.</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">128k</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">High</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">86.5%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">Included in X Premium</span>
+                            </div>
+                        </div>
+
+                        <a href="https://x.ai" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        M
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Mistral AI</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">Mistral Large 2</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">European champion with strong multilingual support and coding proficiency.</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">128k</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">Very High</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">84.0%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">$3 / $9</span>
+                            </div>
+                        </div>
+
+                        <a href="https://mistral.ai/" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        C
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">Anthropic</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">Claude 3 Opus</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">Deep reasoning model for complex tasks where accuracy is paramount.</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">200k</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">Elite</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">86.8%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">$15 / $75</span>
+                            </div>
+                        </div>
+
+                        <a href="https://anthropic.com/claude" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        G
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">OpenAI</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">GPT-4 Turbo</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">Previous flagship, reliable workhorse for general purpose tasks.</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">128k</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">Very High</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">86.4%</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">$10 / $30</span>
+                            </div>
+                        </div>
+
+                        <a href="https://openai.com" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
                             Access Model
                         </a>
                     </div>

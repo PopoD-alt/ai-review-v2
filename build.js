@@ -30,7 +30,10 @@ buildPage('models.html', 'Models', generateModelsPage());
 // 4. Tutorials (tutorials.html)
 buildPage('tutorials.html', 'Tutorials', generateTutorialsPage());
 
-// 5. Individual Tutorials
+// 5. Compare (compare.html)
+buildPage('compare.html', 'Models', generateComparePage());
+
+// 6. Individual Tutorials
 tutorials.forEach(tut => {
     buildPage(`tutorials/${tut.id}.html`, 'Tutorials', generateTutorialDetail(tut));
 });
@@ -60,11 +63,13 @@ function generateDashboardContent() {
             </div>
             <div class="space-y-4">
                 ${news.slice(0, 3).map(item => {
-                    const type = item.title.toLowerCase().includes('rumor') || item.title.toLowerCase().includes('leak') ? 'Rumor' : 'Official';
+                    const type = item.type || (item.title.toLowerCase().includes('rumor') || item.title.toLowerCase().includes('leak') ? 'Rumor' : 'Official');
+                    const color = type === 'Rumor' ? 'text-pink-400' : 'text-emerald-400';
+                    
                     return `
                     <div class="glass p-5 rounded-2xl card-hover cursor-pointer group">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="text-[10px] font-bold uppercase tracking-wider ${type === 'Rumor' ? 'text-pink-400' : 'text-emerald-400'}">${type}</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider ${color}">${type}</span>
                             <span class="text-[10px] text-slate-500">${item.date}</span>
                         </div>
                         <h3 class="font-bold text-slate-200 group-hover:text-white transition mb-1">${item.title}</h3>
@@ -138,7 +143,9 @@ function generateNewsPage() {
                 const dateObj = new Date(item.date);
                 const month = dateObj.toLocaleString('default', { month: 'short' });
                 const day = dateObj.getDate();
-                const type = item.title.toLowerCase().includes('rumor') || item.title.toLowerCase().includes('leak') ? 'Rumor' : 'Official';
+                const type = item.type || (item.title.toLowerCase().includes('rumor') ? 'Rumor' : 'Official');
+                const typeClass = type === 'Rumor' ? 'bg-pink-500/10 text-pink-400' : 
+                                type === 'Leak' ? 'bg-amber-500/10 text-amber-400' : 'bg-emerald-500/10 text-emerald-400';
                 
                 return `
                 <div class="glass p-6 rounded-2xl flex flex-col md:flex-row gap-6">
@@ -148,7 +155,7 @@ function generateNewsPage() {
                     </div>
                     <div>
                         <div class="flex items-center gap-3 mb-2">
-                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${type === 'Rumor' ? 'bg-pink-500/10 text-pink-400' : 'bg-emerald-500/10 text-emerald-400'} border border-white/5">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${typeClass} border border-white/5">
                                 ${type}
                             </span>
                         </div>
@@ -171,7 +178,11 @@ function generateModelsPage() {
     <div class="max-w-6xl mx-auto px-4 py-12">
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-white mb-4">The Arena</h1>
-            <p class="text-slate-400">Benchmark comparisons and capability analysis.</p>
+            <p class="text-slate-400 mb-8">Benchmark comparisons and capability analysis.</p>
+            <a href="compare.html" class="inline-flex items-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-full transition shadow-lg shadow-indigo-500/20">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Compare Models
+            </a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -196,6 +207,10 @@ function generateModelsPage() {
                                 <span class="text-indigo-400 font-bold">${model.performance}</span>
                             </div>
                             <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">MMLU</span>
+                                <span class="text-pink-400 font-bold">${model.mmlu || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
                                 <span class="text-slate-500">Cost</span>
                                 <span class="text-emerald-400 font-bold">${model.price}</span>
                             </div>
@@ -209,6 +224,93 @@ function generateModelsPage() {
             `).join('')}
         </div>
     </div>
+    `;
+}
+
+function generateComparePage() {
+    const modelsJson = JSON.stringify(llms);
+    return `
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">Model Comparator</h1>
+            <p class="text-slate-400">Head-to-head analysis of top-tier LLMs.</p>
+        </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Model A</label>
+                    <select id="modelA" class="compare-select" onchange="renderComparison()">
+                        ${llms.map((m, i) => `<option value="${i}" ${i===0?'selected':''}>${m.name}</option>`).join('')}
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Model B</label>
+                    <select id="modelB" class="compare-select" onchange="renderComparison()">
+                        ${llms.map((m, i) => `<option value="${i}" ${i===1?'selected':''}>${m.name}</option>`).join('')}
+                    </select>
+                </div>
+            </div>
+
+            <div id="comparisonResult" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const models = ${modelsJson};
+
+        function renderComparison() {
+            const idxA = document.getElementById('modelA').value;
+            const idxB = document.getElementById('modelB').value;
+            const modelA = models[idxA];
+            const modelB = models[idxB];
+            
+            const container = document.getElementById('comparisonResult');
+            
+            function renderCard(m) {
+                return \`
+                    <div class="space-y-6">
+                        <div class="text-center">
+                            <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-2">\${m.provider}</span>
+                            <h2 class="text-3xl font-bold text-white">\${m.name}</h2>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                <span class="text-slate-400">Context</span>
+                                <span class="text-white font-mono font-bold">\${m.context}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                <span class="text-slate-400">Performance</span>
+                                <span class="text-indigo-400 font-bold">\${m.performance}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                <span class="text-slate-400">MMLU Score</span>
+                                <span class="text-pink-400 font-bold">\${m.mmlu || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white/5 rounded-lg">
+                                <span class="text-slate-400">Pricing</span>
+                                <span class="text-emerald-400 font-bold">\${m.price}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm text-slate-400 leading-relaxed">\${m.description}</p>
+                        
+                        <div class="flex gap-2 flex-wrap">
+                            \${(m.tags || []).map(t => \`<span class="text-[10px] bg-white/5 px-2 py-1 rounded text-slate-300">\${t}</span>\`).join('')}
+                        </div>
+                    </div>
+                \`;
+            }
+
+            container.innerHTML = renderCard(modelA) + '<div class="hidden md:block w-px bg-white/10 absolute left-1/2 top-8 bottom-8"></div>' + renderCard(modelB);
+        }
+
+        // Init
+        renderComparison();
+    </script>
     `;
 }
 
@@ -241,6 +343,10 @@ function generateTutorialsPage() {
 }
 
 function generateTutorialDetail(tut) {
+    // Inject copy buttons into content
+    let content = tut.content.replace(/<div class='code-block'><pre><code>/g, 
+        "<div class='code-block'><button class='copy-btn' onclick='copyCode(this)'>Copy</button><pre><code>");
+
     return `
     <div class="max-w-3xl mx-auto px-4 py-12">
         <a href="../tutorials.html" class="text-slate-500 hover:text-white mb-8 inline-flex items-center gap-2 text-sm transition">
@@ -258,7 +364,7 @@ function generateTutorialDetail(tut) {
         </header>
 
         <div class="prose prose-invert prose-lg max-w-none">
-            ${tut.content}
+            ${content}
         </div>
     </div>
     `;
@@ -295,8 +401,6 @@ function buildPage(filename, activeNav, content) {
         html = html.replace(/href="news.html"/g, 'href="../news.html"');
         html = html.replace(/href="models.html"/g, 'href="../models.html"');
         html = html.replace(/href="tutorials.html"/g, 'href="../tutorials.html"');
-        // Fix asset paths if any (simple approach)
-        // html = html.replace(/src="assets\//g, 'src="../assets/'); 
     }
 
     const outPath = path.join(DIST_DIR, filename);

@@ -1,20 +1,86 @@
 [
   {
-    "title": "GPT-5 Rumors: Everything We Know",
-    "summary": "OpenAI's next model might focus on reasoning capabilities.",
-    "url": "https://techcrunch.com/tag/artificial-intelligence/",
-    "date": "2026-02-15"
+    "title": "OpenAI 'Orion' Model Release Date Rumored for Q3",
+    "summary": "Insider leaks suggest OpenAI is targeting a late Q3 release for its next frontier model, codenamed Orion. Sources claim it will feature reasoning capabilities 10x faster than GPT-4o.",
+    "url": "#",
+    "date": "2026-02-22",
+    "type": "Rumor"
   },
   {
-    "title": "Google Gemini Ultra Released for Everyone",
-    "summary": "The powerful multimodal model is now available globally.",
-    "url": "https://blog.google/technology/ai/",
-    "date": "2026-02-15"
+    "title": "Anthropic Announces Claude 3.7 Opus with 'Agentic Mode'",
+    "summary": "Anthropic has officially unveiled Claude 3.7, introducing a new 'Agentic Mode' that allows the model to autonomously browse the web and execute multi-step workflows without user intervention.",
+    "url": "#",
+    "date": "2026-02-21",
+    "type": "Official"
   },
   {
-    "title": "Meta's Llama 4 Leaked Benchmarks",
-    "summary": "Early tests show promising results against proprietary models.",
-    "url": "https://ai.meta.com/blog/",
-    "date": "2026-02-15"
+    "title": "Google DeepMind's Project Astra to Integrate into Android 17",
+    "summary": "Code snippets found in the latest Android beta point to deep integration of Project Astra, allowing users to control apps via voice and vision naturally.",
+    "url": "#",
+    "date": "2026-02-20",
+    "type": "Leak"
+  },
+  {
+    "title": "Meta Llama 4 100B Benchmark Results Surface",
+    "summary": "Early benchmarks for a mid-sized Llama 4 model show it outperforming Llama 3 405B in coding tasks, suggesting a massive leap in architectural efficiency.",
+    "url": "#",
+    "date": "2026-02-19",
+    "type": "Leak"
+  },
+  {
+    "title": "NVIDIA Acquires AI Robotics Startup 'Figure' for $2.6B",
+    "summary": "In a move to dominate physical AI, NVIDIA has acquired Figure. Jensen Huang stated, 'The next wave of AI is physical.'",
+    "url": "#",
+    "date": "2026-02-18",
+    "type": "Official"
+  },
+  {
+    "title": "Apple Intelligence 2.0 to Run Local LLMs on iPhone 18",
+    "summary": "Supply chain reports indicate the A20 chip is designed specifically for running 7B parameter models locally on-device with zero latency.",
+    "url": "#",
+    "date": "2026-02-17",
+    "type": "Rumor"
+  },
+  {
+    "title": "Midjourney V7 Introduces 3D Model Generation",
+    "summary": "Midjourney is moving beyond 2D images. The latest alpha allows generating textured 3D meshes compatible with Unreal Engine 5.",
+    "url": "#",
+    "date": "2026-02-16",
+    "type": "Official"
+  },
+  {
+    "title": "OpenSource 'Mixtral-Next' Beats GPT-4 in Arena",
+    "summary": "A new mysterious model released on HuggingFace has climbed to the #1 spot on the LMSYS leaderboard, beating all proprietary models.",
+    "url": "#",
+    "date": "2026-02-15",
+    "type": "Community"
+  },
+  {
+    "title": "Microsoft Copilot to Replace Windows Start Menu",
+    "summary": "A controversial design document leaked from Redmond suggests Windows 12 might replace the traditional Start Menu entirely with a Copilot chat interface.",
+    "url": "#",
+    "date": "2026-02-14",
+    "type": "Rumor"
+  },
+  {
+    "title": "Tesla Optimus Gen 3 Shipping to Factories",
+    "summary": "Elon Musk confirmed that Optimus Gen 3 robots are now performing autonomous assembly tasks at Giga Texas.",
+    "url": "#",
+    "date": "2026-02-13",
+    "type": "Official"
+  },
+  {
+    "title": "Stability AI Files for IPO",
+    "summary": "After a turbulent year, Stability AI has filed paperwork for an initial public offering, valuing the company at $4 billion.",
+    "url": "#",
+    "date": "2026-02-12",
+    "type": "Official"
+  },
+  {
+    "title": "Cursor IDE Raises $100M Series B",
+    "summary": "The AI-first code editor Cursor has secured major funding to build 'the first fully autonomous software engineer'.",
+    "url": "#",
+    "date": "2026-02-11",
+    "type": "Official"
   }
 ]
