@@ -1,186 +1,305 @@
 const fs = require('fs');
 const path = require('path');
 
-// Define paths
-const dataDir = path.join(__dirname, 'scraped_data');
-const toolsPath = path.join(dataDir, 'tools.json');
-const newsPath = path.join(dataDir, 'news.json');
-const llmsPath = path.join(dataDir, 'llms.json');
-const templatePath = path.join(__dirname, 'template.html');
-const distDir = path.join(__dirname, 'dist');
-const outputPath = path.join(distDir, 'index.html');
+// Configuration
+const DATA_DIR = path.join(__dirname, 'scraped_data');
+const DIST_DIR = path.join(__dirname, 'dist');
+const TEMPLATE = fs.readFileSync(path.join(__dirname, 'template.html'), 'utf8');
 
-console.log(`Building site...`);
+// Load Data
+const tools = loadJson('tools.json');
+const news = loadJson('news.json');
+const llms = loadJson('llms.json');
+const tutorials = loadJson('tutorials.json');
 
-try {
-    // Read data
-    const tools = JSON.parse(fs.readFileSync(toolsPath, 'utf8'));
-    const template = fs.readFileSync(templatePath, 'utf8');
+// Ensure dist exists
+if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR, { recursive: true });
+if (!fs.existsSync(path.join(DIST_DIR, 'tutorials'))) fs.mkdirSync(path.join(DIST_DIR, 'tutorials'), { recursive: true });
 
-    // Handle missing files gracefully
-    let news = [];
-    try { news = JSON.parse(fs.readFileSync(newsPath, 'utf8')); } catch (e) { console.warn('news.json not found, using empty array'); }
+// --- BUILD PAGES ---
 
-    let llms = [];
-    try { llms = JSON.parse(fs.readFileSync(llmsPath, 'utf8')); } catch (e) { console.warn('llms.json not found, using empty array'); }
+// 1. Dashboard (index.html)
+buildPage('index.html', 'Dashboard', generateDashboardContent());
 
-    // 1. Generate Tool Cards
-    const toolsHtml = tools.map(tool => {
-        const category = tool.category || 'Uncategorized';
-        const likes = Math.floor(Math.random() * 500) + 50; 
-        
-        return `
-        <div class="tool-card glass rounded-3xl overflow-hidden p-6 flex flex-col justify-between h-full group" 
-             data-name="${tool.name}" data-category="${category}" data-desc="${tool.description}">
-            
-            <div class="flex items-start justify-between mb-4">
-                <div class="flex items-center space-x-4">
-                    <div class="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-extrabold text-xl flex-shrink-0 group-hover:scale-110 transition-transform">
-                        ${tool.name.charAt(0).toUpperCase()}
+// 2. News (news.html)
+buildPage('news.html', 'Intel', generateNewsPage());
+
+// 3. Models (models.html)
+buildPage('models.html', 'Models', generateModelsPage());
+
+// 4. Tutorials (tutorials.html)
+buildPage('tutorials.html', 'Tutorials', generateTutorialsPage());
+
+// 5. Individual Tutorials
+tutorials.forEach(tut => {
+    buildPage(`tutorials/${tut.id}.html`, 'Tutorials', generateTutorialDetail(tut));
+});
+
+
+// --- GENERATORS ---
+
+function generateDashboardContent() {
+    return `
+    <div class="relative pt-16 pb-20 px-4 text-center">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+            The <span class="gradient-text">Intelligence Hub</span>
+        </h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+            Your central command for AI tools, model benchmarks, and intelligence briefings.
+        </p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Column 1: Intel -->
+        <div class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="text-indigo-400">●</span> Latest Intel
+                </h2>
+                <a href="news.html" class="text-xs text-slate-500 hover:text-white transition">View All</a>
+            </div>
+            <div class="space-y-4">
+                ${news.slice(0, 3).map(item => {
+                    const type = item.title.toLowerCase().includes('rumor') || item.title.toLowerCase().includes('leak') ? 'Rumor' : 'Official';
+                    return `
+                    <div class="glass p-5 rounded-2xl card-hover cursor-pointer group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider ${type === 'Rumor' ? 'text-pink-400' : 'text-emerald-400'}">${type}</span>
+                            <span class="text-[10px] text-slate-500">${item.date}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-200 group-hover:text-white transition mb-1">${item.title}</h3>
+                        <p class="text-xs text-slate-500 line-clamp-2">${item.summary}</p>
+                    </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+
+        <!-- Column 2: Tools -->
+        <div class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="text-pink-400">●</span> Trending Tools
+                </h2>
+                <span class="text-xs text-slate-500">Updated Daily</span>
+            </div>
+            <div class="space-y-4">
+                ${tools.slice(0, 3).map(tool => `
+                    <div class="glass p-5 rounded-2xl card-hover flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-lg font-bold text-white/50 shrink-0">
+                            ${tool.name.charAt(0)}
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-sm">${tool.name}</h3>
+                            <p class="text-xs text-slate-400 mb-2">${tool.category}</p>
+                            <p class="text-xs text-slate-500 line-clamp-1">${tool.description}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <!-- Column 3: Arena -->
+        <div class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <span class="text-amber-400">●</span> The Arena
+                </h2>
+                <a href="models.html" class="text-xs text-slate-500 hover:text-white transition">Full Rankings</a>
+            </div>
+            <div class="space-y-4">
+                ${llms.slice(0, 3).map((model, i) => `
+                    <div class="glass p-4 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl font-black text-white/10">0${i+1}</span>
+                            <div>
+                                <h4 class="font-bold text-slate-200 text-sm">${model.name}</h4>
+                                <span class="text-[10px] text-slate-500">${model.provider}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-xs font-bold text-indigo-400">${model.performance}</span>
+                            <span class="text-[10px] text-slate-600">${model.context} ctx</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function generateNewsPage() {
+    return `
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-white mb-8">Intelligence & Rumors</h1>
+        <div class="grid gap-6">
+            ${news.map(item => {
+                const dateObj = new Date(item.date);
+                const month = dateObj.toLocaleString('default', { month: 'short' });
+                const day = dateObj.getDate();
+                const type = item.title.toLowerCase().includes('rumor') || item.title.toLowerCase().includes('leak') ? 'Rumor' : 'Official';
+                
+                return `
+                <div class="glass p-6 rounded-2xl flex flex-col md:flex-row gap-6">
+                    <div class="shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-xl bg-white/5 border border-white/5">
+                        <span class="text-xs font-bold text-slate-400">${month}</span>
+                        <span class="text-lg font-black text-white">${day}</span>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white leading-tight">${tool.name}</h3>
-                        <span class="text-[10px] text-indigo-300 font-bold uppercase tracking-wider bg-indigo-500/10 px-2 py-0.5 rounded-md border border-indigo-500/10">${category}</span>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${type === 'Rumor' ? 'bg-pink-500/10 text-pink-400' : 'bg-emerald-500/10 text-emerald-400'} border border-white/5">
+                                ${type}
+                            </span>
+                        </div>
+                        <h2 class="text-xl font-bold text-white mb-2">${item.title}</h2>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">${item.summary}</p>
+                        <a href="${item.url}" target="_blank" class="text-sm font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                            Read Source <span>→</span>
+                        </a>
                     </div>
                 </div>
-                <div class="flex items-center text-gray-500 text-xs font-bold space-x-1 flex-shrink-0">
-                    <span class="text-pink-500">✦</span> <span>${likes}</span>
-                </div>
-            </div>
-
-            <p class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed font-medium">
-                ${tool.description}
-            </p>
-
-            <div class="mt-auto">
-                <a href="${tool.url}" target="_blank" rel="noopener noreferrer" 
-                   class="flex items-center justify-center w-full bg-white/5 hover:bg-white/10 text-white font-bold py-3 rounded-2xl transition-all duration-300 text-sm border border-white/5 hover:border-white/10 group-hover:shadow-lg group-hover:shadow-white/5">
-                    Launch Tool
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
-            </div>
+                `;
+            }).join('')}
         </div>
-        `;
-    }).join('');
-
-    // 2. Generate News Cards
-    const newsHtml = news.map(item => `
-        <a href="${item.url}" target="_blank" class="block group">
-            <div class="relative pl-6 py-1">
-                <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-white/5 group-hover:bg-indigo-500 transition-colors"></div>
-                <h4 class="font-bold text-gray-200 group-hover:text-white transition-colors text-sm leading-snug">${item.title}</h4>
-                <p class="text-xs text-gray-500 mt-2 line-clamp-2 font-medium">${item.summary}</p>
-                <div class="flex items-center mt-3 text-[10px] text-gray-600 font-bold uppercase tracking-widest">
-                    <span>${item.date}</span>
-                </div>
-            </div>
-        </a>
-    `).join('');
-
-    // 3. Generate LLM Leaderboard Cards
-    const llmHtml = llms.map((model, index) => {
-        const rankColors = index === 0 ? 'text-yellow-400' : index === 1 ? 'text-slate-300' : index === 2 ? 'text-amber-600' : 'text-gray-500';
-        return `
-        <div class="relative p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-            <div class="flex justify-between items-start mb-3">
-                <h4 class="font-bold text-white flex items-center text-sm">
-                    <span class="mr-2 ${rankColors} font-black">0${index + 1}</span> 
-                    ${model.name}
-                </h4>
-                <span class="text-[10px] font-black px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-md border border-indigo-500/10 uppercase tracking-tighter">${model.performance}</span>
-            </div>
-            <p class="text-[10px] text-gray-500 mb-3 font-bold uppercase tracking-wider">by ${model.provider} • ${model.context} ctx</p>
-            <p class="text-xs text-gray-400 mb-4 font-medium leading-relaxed">${model.description}</p>
-            <div class="flex justify-between items-center text-[10px]">
-                <span class="font-black text-white bg-white/10 px-2 py-1 rounded-md uppercase tracking-widest">${model.price}</span>
-                <a href="${model.url}" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-black flex items-center uppercase tracking-widest">
-                    Access 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-        `;
-    }).join('');
-
-    // 4. Generate Categories HTML
-    const uniqueCategories = [...new Set(tools.map(t => t.category || 'Uncategorized'))].sort();
-    const categoriesHtml = uniqueCategories.map(cat => `
-        <button class="category-filter px-6 py-2 rounded-full text-xs font-bold text-gray-400 border border-white/5 hover:border-white/20 hover:text-white transition-all backdrop-blur-sm" 
-                onclick="filterCategory('${cat}')" data-category="${cat}">
-            ${cat}
-        </button>
-    `).join('');
-
-    // 5. Inject into template
-    let finalHtml = template
-        .replace('<!-- TOOLS_PLACEHOLDER -->', toolsHtml)
-        .replace('<!-- NEWS_PLACEHOLDER -->', newsHtml || '<p class="text-gray-500 text-sm italic">No news available today.</p>')
-        .replace('<!-- LLM_PLACEHOLDER -->', llmHtml || '<p class="text-gray-500 text-sm italic">Leaderboard updating...</p>')
-        .replace('<!-- CATEGORIES_PLACEHOLDER -->', categoriesHtml);
-
-    // 6. Inject JS Logic
-    const scriptLogic = `
-    <script>
-        function filterCategory(category) {
-            const cards = document.querySelectorAll('.tool-card');
-            const buttons = document.querySelectorAll('.category-filter');
-            
-            buttons.forEach(btn => {
-                const btnCat = btn.getAttribute('data-category');
-                const isAll = (category === 'all' && btn.innerText.trim() === 'All Universe');
-                
-                if (btnCat === category || isAll) {
-                    btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-400/20');
-                    btn.classList.remove('text-gray-400', 'border-white/5');
-                } else {
-                    btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-400/20');
-                    btn.classList.add('text-gray-400', 'border-white/5');
-                }
-            });
-
-            cards.forEach(card => {
-                const cardCat = card.getAttribute('data-category');
-                if (category === 'all' || cardCat === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-        
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
-            
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name').toLowerCase();
-                const desc = card.getAttribute('data-desc').toLowerCase();
-                
-                if (name.includes(term) || desc.includes(term)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    </div>
     `;
-    
-    finalHtml = finalHtml.replace('</body>', `${scriptLogic}</body>`);
+}
 
-    // Ensure dist directory exists
-    if (!fs.existsSync(distDir)) {
-        fs.mkdirSync(distDir, { recursive: true });
+function generateModelsPage() {
+    return `
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">The Arena</h1>
+            <p class="text-slate-400">Benchmark comparisons and capability analysis.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${llms.map(model => `
+                <div class="glass p-6 rounded-3xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 font-black text-6xl text-white group-hover:scale-110 transition-transform select-none">
+                        ${model.name.charAt(0)}
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-slate-300 mb-4 border border-white/5">${model.provider}</span>
+                        <h2 class="text-2xl font-bold text-white mb-2">${model.name}</h2>
+                        <p class="text-sm text-slate-400 mb-6 h-10">${model.description}</p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Context Window</span>
+                                <span class="text-slate-200 font-mono">${model.context}</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Performance</span>
+                                <span class="text-indigo-400 font-bold">${model.performance}</span>
+                            </div>
+                            <div class="flex justify-between text-sm border-b border-white/5 pb-2">
+                                <span class="text-slate-500">Cost</span>
+                                <span class="text-emerald-400 font-bold">${model.price}</span>
+                            </div>
+                        </div>
+
+                        <a href="${model.url}" target="_blank" class="block w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-center font-bold rounded-xl transition shadow-lg shadow-indigo-500/20">
+                            Access Model
+                        </a>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+    `;
+}
+
+function generateTutorialsPage() {
+    return `
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold text-white mb-8">Workshop</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${tutorials.map(tut => `
+                <a href="tutorials/${tut.id}.html" class="glass p-8 rounded-3xl card-hover group block">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-lg border border-indigo-500/10">
+                            ${tut.level}
+                        </span>
+                        <span class="text-xs text-slate-500 font-mono flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            ${tut.duration}
+                        </span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3 group-hover:text-indigo-300 transition">${tut.title}</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">${tut.summary}</p>
+                    <div class="text-sm font-bold text-white flex items-center gap-2">
+                        Start Tutorial <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                </a>
+            `).join('')}
+        </div>
+    </div>
+    `;
+}
+
+function generateTutorialDetail(tut) {
+    return `
+    <div class="max-w-3xl mx-auto px-4 py-12">
+        <a href="../tutorials.html" class="text-slate-500 hover:text-white mb-8 inline-flex items-center gap-2 text-sm transition">
+            ← Back to Workshop
+        </a>
+        
+        <header class="mb-10">
+            <div class="flex gap-4 mb-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span>${tut.level}</span>
+                <span>•</span>
+                <span>${tut.duration}</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">${tut.title}</h1>
+            <p class="text-xl text-slate-400 leading-relaxed">${tut.summary}</p>
+        </header>
+
+        <div class="prose prose-invert prose-lg max-w-none">
+            ${tut.content}
+        </div>
+    </div>
+    `;
+}
+
+
+// --- UTILS ---
+
+function loadJson(filename) {
+    try {
+        return JSON.parse(fs.readFileSync(path.join(DATA_DIR, filename), 'utf8'));
+    } catch (e) {
+        console.warn(`Warning: Could not load ${filename}`);
+        return [];
+    }
+}
+
+function buildPage(filename, activeNav, content) {
+    let html = TEMPLATE;
+    
+    // Inject content
+    html = html.replace('<!-- PAGE_CONTENT -->', content);
+    
+    // Set active nav state
+    const navKey = `<!-- ACTIVE_${activeNav.toUpperCase()} -->`;
+    html = html.replace(navKey, 'active');
+    
+    // Clean up other nav placeholders
+    html = html.replace(/<!-- ACTIVE_[A-Z]+ -->/g, '');
+
+    // Adjust relative links for subdirectories
+    if (filename.includes('/')) {
+        html = html.replace(/href="index.html"/g, 'href="../index.html"');
+        html = html.replace(/href="news.html"/g, 'href="../news.html"');
+        html = html.replace(/href="models.html"/g, 'href="../models.html"');
+        html = html.replace(/href="tutorials.html"/g, 'href="../tutorials.html"');
+        // Fix asset paths if any (simple approach)
+        // html = html.replace(/src="assets\//g, 'src="../assets/'); 
     }
 
-    fs.writeFileSync(outputPath, finalHtml);
-    console.log(`Successfully wrote index.html to: ${outputPath}`);
-
-} catch (error) {
-    console.error('Error building site:', error);
-    process.exit(1);
+    const outPath = path.join(DIST_DIR, filename);
+    fs.writeFileSync(outPath, html);
+    console.log(`Generated: ${filename}`);
 }

@@ -1,0 +1,18 @@
+[
+    {
+        "id": "setup-openclaw",
+        "title": "Setting up OpenClaw",
+        "summary": "A step-by-step guide to installing and configuring your personal AI agent.",
+        "level": "Intermediate",
+        "duration": "15 min",
+        "content": "<h1>Setting up OpenClaw</h1><p>OpenClaw is your personal AI operating system. Follow these steps to get started:</p><h2>1. Installation</h2><pre><code>npm install -g openclaw</code></pre><h2>2. Configuration</h2><p>Run the init command to set up your workspace:</p><pre><code>openclaw init</code></pre><h2>3. Connecting Models</h2><p>OpenClaw supports Gemini, Claude, and local models. Edit your <code>config.json</code> to add your API keys.</p>"
+    },
+    {
+        "id": "gemini-api",
+        "title": "Integrating Gemini API",
+        "summary": "Learn how to use Google's Gemini Pro in your own applications.",
+        "level": "Beginner",
+        "duration": "10 min",
+        "content": "<h1>Integrating Gemini API</h1><p>Google's Gemini API offers powerful multimodal capabilities.</p><h2>Get your Key</h2><p>Visit AI Studio to generate an API key.</p>"
+    }
+]
