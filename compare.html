@@ -144,13 +144,13 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Model A</label>
                     <select id="modelA" class="compare-select" onchange="renderComparison()">
-                        <option value="0" selected>GPT-4o</option><option value="1" >Claude 3.5 Sonnet</option><option value="2" >Gemini 1.5 Pro</option><option value="3" >Llama 3.1 405B</option><option value="4" >Grok 2</option><option value="5" >Mistral Large 2</option><option value="6" >Claude 3 Opus</option><option value="7" >GPT-4 Turbo</option>
+                        <option value="0" selected>Llama 3 70B</option><option value="1" >Mistral Large</option><option value="2" >Gemini 1.5 Pro</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Model B</label>
                     <select id="modelB" class="compare-select" onchange="renderComparison()">
-                        <option value="0" >GPT-4o</option><option value="1" selected>Claude 3.5 Sonnet</option><option value="2" >Gemini 1.5 Pro</option><option value="3" >Llama 3.1 405B</option><option value="4" >Grok 2</option><option value="5" >Mistral Large 2</option><option value="6" >Claude 3 Opus</option><option value="7" >GPT-4 Turbo</option>
+                        <option value="0" >Llama 3 70B</option><option value="1" selected>Mistral Large</option><option value="2" >Gemini 1.5 Pro</option>
                     </select>
                 </div>
             </div>
@@ -162,7 +162,7 @@
     </div>
 
     <script>
-        const models = [{"name":"GPT-4o","provider":"OpenAI","price":"$5 / $15","performance":"Elite","context":"128k","mmlu":"88.7%","description":"Omni model with state-of-the-art reasoning, audio, and vision capabilities.","url":"https://openai.com/gpt-4o","tags":["Multimodal","Reasoning","Coding"]},{"name":"Claude 3.5 Sonnet","provider":"Anthropic","price":"$3 / $15","performance":"Elite","context":"200k","mmlu":"88.3%","description":"The industry standard for coding and nuanced writing tasks. Exceptional speed and cost-efficiency.","url":"https://anthropic.com/claude","tags":["Coding","Writing","Vision"]},{"name":"Gemini 1.5 Pro","provider":"Google","price":"$3.50 / $10.50","performance":"Elite","context":"2M","mmlu":"85.9%","description":"Massive context window ideal for analyzing entire codebases, long documents, and video.","url":"https://aistudio.google.com/","tags":["Long Context","Multimodal","Analysis"]},{"name":"Llama 3.1 405B","provider":"Meta","price":"Open Source","performance":"Elite","context":"128k","mmlu":"88.6%","description":"The most powerful open-weights model available. Rivaling top proprietary models.","url":"https://llama.meta.com/","tags":["Open Source","Reasoning","Enterprise"]},{"name":"Grok 2","provider":"xAI","price":"Included in X Premium","performance":"High","context":"128k","mmlu":"86.5%","description":"Real-time access to X data with strong reasoning capabilities and uncensored modes.","url":"https://x.ai","tags":["Real-time","Social","Uncensored"]},{"name":"Mistral Large 2","provider":"Mistral AI","price":"$3 / $9","performance":"Very High","context":"128k","mmlu":"84.0%","description":"European champion with strong multilingual support and coding proficiency.","url":"https://mistral.ai/","tags":["Multilingual","Coding","Efficient"]},{"name":"Claude 3 Opus","provider":"Anthropic","price":"$15 / $75","performance":"Elite","context":"200k","mmlu":"86.8%","description":"Deep reasoning model for complex tasks where accuracy is paramount.","url":"https://anthropic.com/claude","tags":["Reasoning","Writing","Complex Tasks"]},{"name":"GPT-4 Turbo","provider":"OpenAI","price":"$10 / $30","performance":"Very High","context":"128k","mmlu":"86.4%","description":"Previous flagship, reliable workhorse for general purpose tasks.","url":"https://openai.com","tags":["General","Reasoning"]}];
+        const models = [{"name":"Llama 3 70B","provider":"Meta","price":"Free (Open Source)","performance":"High","context":"8k","description":"Best open-source model for general reasoning.","url":"https://llama.meta.com/"},{"name":"Mistral Large","provider":"Mistral AI","price":"Free Tier Available","performance":"Very High","context":"32k","description":"Strong coding capabilities and multilingual support.","url":"https://mistral.ai/"},{"name":"Gemini 1.5 Pro","provider":"Google","price":"Free (via AI Studio)","performance":"Elite","context":"1M+","description":"Massive context window for analyzing books/codebases.","url":"https://aistudio.google.com/"}];
 
         function renderComparison() {
             const idxA = document.getElementById('modelA').value;
