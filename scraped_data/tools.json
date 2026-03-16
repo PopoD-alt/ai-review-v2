@@ -1,5 +1,12 @@
 [
   {
+    "name": "CodePilot8",
+    "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
+    "category": "Writing",
+    "url": "https://example.com/codepilot8",
+    "date_added": "2026-03-16"
+  },
+  {
     "name": "BrainWave89",
     "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
     "category": "Design",
