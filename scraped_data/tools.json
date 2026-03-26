@@ -1,5 +1,12 @@
 [
   {
+    "name": "NovaFlow49",
+    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
+    "category": "Productivity",
+    "url": "https://example.com/novaflow49",
+    "date_added": "2026-03-26"
+  },
+  {
     "name": "BrainWave2",
     "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
     "category": "Writing",
@@ -333,11 +340,5 @@
     "description": "Builds functional websites directly from Google Sheets.",
     "category": "Web Development",
     "url": "https://spreadsimple.com"
-  },
-  {
-    "name": "recap-flow",
-    "description": "Summarizes meetings and generates structured business plans.",
-    "category": "Productivity",
-    "url": "https://recapflow.com"
   }
 ]
