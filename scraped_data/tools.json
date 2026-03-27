@@ -1,5 +1,12 @@
 [
   {
+    "name": "BrainWave99",
+    "description": "Automated discovery: This AI tool helps with video tasks efficiently.",
+    "category": "Video",
+    "url": "https://example.com/brainwave99",
+    "date_added": "2026-03-27"
+  },
+  {
     "name": "NovaFlow49",
     "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
     "category": "Productivity",
@@ -334,11 +341,5 @@
     "description": "Creates branded videos directly from documents.",
     "category": "Video",
     "url": "https://ngram.io"
-  },
-  {
-    "name": "spreadsimple",
-    "description": "Builds functional websites directly from Google Sheets.",
-    "category": "Web Development",
-    "url": "https://spreadsimple.com"
   }
 ]
