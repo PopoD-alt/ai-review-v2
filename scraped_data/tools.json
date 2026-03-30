@@ -1,5 +1,12 @@
 [
   {
+    "name": "BrainWave0",
+    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
+    "category": "Productivity",
+    "url": "https://example.com/brainwave0",
+    "date_added": "2026-03-30"
+  },
+  {
     "name": "PixelMinds2",
     "description": "Automated discovery: This AI tool helps with video tasks efficiently.",
     "category": "Video",
@@ -337,11 +344,5 @@
     "description": "Segments customers and filters unengaged contacts for marketing.",
     "category": "Marketing",
     "url": "https://orita.ai"
-  },
-  {
-    "name": "mixels-ai",
-    "description": "Generates pixel art and sprites for game development.",
-    "category": "Design",
-    "url": "https://mixels.ai"
   }
 ]
