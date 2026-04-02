@@ -1,5 +1,12 @@
 [
   {
+    "name": "NovaFlow93",
+    "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
+    "category": "Code",
+    "url": "https://example.com/novaflow93",
+    "date_added": "2026-04-02"
+  },
+  {
     "name": "NovaFlow92",
     "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
     "category": "Code",
@@ -340,11 +347,5 @@
     "description": "Upscale and refine architectural renders using AI.",
     "category": "Design",
     "url": "https://www.vaethat.com"
-  },
-  {
-    "name": "upfirst",
-    "description": "AI-powered tool to answer calls and book appointments.",
-    "category": "Productivity",
-    "url": "https://upfirst.ai"
   }
 ]
