@@ -1,5 +1,12 @@
 [
   {
+    "name": "BrainWave65",
+    "description": "Automated discovery: This AI tool helps with video tasks efficiently.",
+    "category": "Video",
+    "url": "https://example.com/brainwave65",
+    "date_added": "2026-04-09"
+  },
+  {
     "name": "CodePilot26",
     "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
     "category": "Productivity",
@@ -341,12 +348,5 @@
     "category": "Video",
     "url": "https://deepmind.google/technologies/veo/",
     "date_added": "2026-02-21"
-  },
-  {
-    "name": "PixelMinds42",
-    "description": "Automated discovery: This AI tool helps with marketing tasks efficiently.",
-    "category": "Marketing",
-    "url": "https://example.com/pixelminds42",
-    "date_added": "2026-02-20"
   }
 ]
