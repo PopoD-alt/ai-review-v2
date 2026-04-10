@@ -1,5 +1,12 @@
 [
   {
+    "name": "CopyGenius16",
+    "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
+    "category": "Code",
+    "url": "https://example.com/copygenius16",
+    "date_added": "2026-04-10"
+  },
+  {
     "name": "BrainWave65",
     "description": "Automated discovery: This AI tool helps with video tasks efficiently.",
     "category": "Video",
@@ -340,13 +347,6 @@
     "description": "OpenAI's text-to-video model that creates highly realistic scenes from text instructions.",
     "category": "Video",
     "url": "https://openai.com/sora",
-    "date_added": "2026-02-21"
-  },
-  {
-    "name": "Veo",
-    "description": "Google DeepMind's most capable generative video model for creators and filmmakers.",
-    "category": "Video",
-    "url": "https://deepmind.google/technologies/veo/",
     "date_added": "2026-02-21"
   }
 ]
