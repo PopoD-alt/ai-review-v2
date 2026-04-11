@@ -1,5 +1,12 @@
 [
   {
+    "name": "Synthetix56",
+    "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
+    "category": "Code",
+    "url": "https://example.com/synthetix56",
+    "date_added": "2026-04-11"
+  },
+  {
     "name": "CopyGenius16",
     "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
     "category": "Code",
@@ -340,13 +347,6 @@
     "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
     "category": "Design",
     "url": "https://example.com/novaflow25",
-    "date_added": "2026-02-21"
-  },
-  {
-    "name": "Sora",
-    "description": "OpenAI's text-to-video model that creates highly realistic scenes from text instructions.",
-    "category": "Video",
-    "url": "https://openai.com/sora",
     "date_added": "2026-02-21"
   }
 ]
