@@ -1,5 +1,12 @@
 [
   {
+    "name": "NovaFlow22",
+    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
+    "category": "Productivity",
+    "url": "https://example.com/novaflow22",
+    "date_added": "2026-07-29"
+  },
+  {
     "name": "CopyGenius43",
     "description": "Automated discovery: This AI tool helps with video tasks efficiently.",
     "category": "Video",
@@ -341,12 +348,5 @@
     "category": "Writing",
     "url": "https://example.com/copygenius81",
     "date_added": "2026-06-10"
-  },
-  {
-    "name": "CodePilot53",
-    "description": "Automated discovery: This AI tool helps with marketing tasks efficiently.",
-    "category": "Marketing",
-    "url": "https://example.com/codepilot53",
-    "date_added": "2026-06-09"
   }
 ]
