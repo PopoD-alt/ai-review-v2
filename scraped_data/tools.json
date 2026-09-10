@@ -1,5 +1,12 @@
 [
   {
+    "name": "Synthetix4",
+    "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
+    "category": "Writing",
+    "url": "https://example.com/synthetix4",
+    "date_added": "2026-09-10"
+  },
+  {
     "name": "CodePilot67",
     "description": "Automated discovery: This AI tool helps with code tasks efficiently.",
     "category": "Code",
@@ -341,12 +348,5 @@
     "category": "Code",
     "url": "https://example.com/codepilot9",
     "date_added": "2026-07-23"
-  },
-  {
-    "name": "NovaFlow13",
-    "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
-    "category": "Writing",
-    "url": "https://example.com/novaflow13",
-    "date_added": "2026-07-22"
   }
 ]
