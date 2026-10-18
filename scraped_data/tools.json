@@ -1,5 +1,12 @@
 [
   {
+    "name": "BrainWave62",
+    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
+    "category": "Productivity",
+    "url": "https://example.com/brainwave62",
+    "date_added": "2026-10-18"
+  },
+  {
     "name": "BrainWave55",
     "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
     "category": "Design",
@@ -341,12 +348,5 @@
     "category": "Productivity",
     "url": "https://example.com/brainwave90",
     "date_added": "2026-08-30"
-  },
-  {
-    "name": "CopyGenius38",
-    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
-    "category": "Productivity",
-    "url": "https://example.com/copygenius38",
-    "date_added": "2026-08-29"
   }
 ]
