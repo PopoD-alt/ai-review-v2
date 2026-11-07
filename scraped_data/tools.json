@@ -1,5 +1,12 @@
 [
   {
+    "name": "Synthetix6",
+    "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
+    "category": "Design",
+    "url": "https://example.com/synthetix6",
+    "date_added": "2026-11-07"
+  },
+  {
     "name": "NovaFlow17",
     "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
     "category": "Design",
@@ -341,12 +348,5 @@
     "category": "Video",
     "url": "https://example.com/brainwave89",
     "date_added": "2026-09-19"
-  },
-  {
-    "name": "Synthetix79",
-    "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
-    "category": "Writing",
-    "url": "https://example.com/synthetix79",
-    "date_added": "2026-09-18"
   }
 ]
