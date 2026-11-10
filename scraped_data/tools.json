@@ -1,5 +1,12 @@
 [
   {
+    "name": "CopyGenius45",
+    "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
+    "category": "Design",
+    "url": "https://example.com/copygenius45",
+    "date_added": "2026-11-10"
+  },
+  {
     "name": "CopyGenius99",
     "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
     "category": "Writing",
@@ -341,12 +348,5 @@
     "category": "Productivity",
     "url": "https://example.com/codepilot88",
     "date_added": "2026-09-21"
-  },
-  {
-    "name": "Synthetix78",
-    "description": "Automated discovery: This AI tool helps with productivity tasks efficiently.",
-    "category": "Productivity",
-    "url": "https://example.com/synthetix78",
-    "date_added": "2026-09-20"
   }
 ]
