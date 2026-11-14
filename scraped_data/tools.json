@@ -1,5 +1,12 @@
 [
   {
+    "name": "PixelMinds16",
+    "description": "Automated discovery: This AI tool helps with writing tasks efficiently.",
+    "category": "Writing",
+    "url": "https://example.com/pixelminds16",
+    "date_added": "2026-11-14"
+  },
+  {
     "name": "CopyGenius51",
     "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
     "category": "Design",
@@ -341,12 +348,5 @@
     "category": "Writing",
     "url": "https://example.com/synthetix91",
     "date_added": "2026-09-25"
-  },
-  {
-    "name": "PixelMinds77",
-    "description": "Automated discovery: This AI tool helps with design tasks efficiently.",
-    "category": "Design",
-    "url": "https://example.com/pixelminds77",
-    "date_added": "2026-09-24"
   }
 ]
